@@ -6,6 +6,7 @@ public class Brad05 {
 		// 0 ~ 100
 		double temp = Math.random();
 		//System.out.println(temp);
+		// brad@brad.tw
 		int score = (int)(temp * 101);
 		System.out.println(score);
 		

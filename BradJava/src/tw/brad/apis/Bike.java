@@ -1,12 +1,12 @@
 package tw.brad.apis;
 
-public class Bike {
+public class Bike extends Object{
 	// has-a
 	protected double speed;
 	/*
 	 * private :  本類別
 	 * 沒寫 : 相同 package
-	 * protected : 子類別 + 相同 package
+	 * protected : 子類別 or 相同 package
 	 * public: 全世界
 	 */
 	

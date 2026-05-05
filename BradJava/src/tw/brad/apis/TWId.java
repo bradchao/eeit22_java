@@ -32,9 +32,29 @@ public class TWId extends Object{
 		
 	}
 	
+	private TWId(String id) {
+		this.id = id;
+	}
+	
+	public static TWId createTWId(String id) {
+		if (isRight(id)) {
+			return new TWId(id);
+		}else {
+			return null;
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return id;
+	}
+	
+	public String getArea() {
+		return "台中市";
+	}
+	
+	public boolean isMale() {
+		return true;
 	}
 	
 	

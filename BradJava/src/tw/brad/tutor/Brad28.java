@@ -16,6 +16,9 @@ public class Brad28 {
 		System.out.println(id3);
 		System.out.println(id4);
 		
+		TWId id5 = TWId.createTWId("Y120239847");
+		System.out.println(id5);
+		
 	}
 
 }

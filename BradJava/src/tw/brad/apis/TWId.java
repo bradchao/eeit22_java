@@ -32,6 +32,11 @@ public class TWId extends Object{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return id;
+	}
+	
 	
 	public static boolean isRight(String id) {
 		boolean ret = false;

@@ -17,13 +17,18 @@ public class Brad31 {
 		System.out.println("----");
 		//Brad313 obj6 = (Brad313)obj2;
 		System.out.println("----------------------");
-		test(obj1);
-		test(obj3);
+		//test(obj1);
+		//test(obj3);
 		test(obj5);
 	}
 	
 	static void test(Brad311 car) {
 		car.m1();
+		if (car instanceof Brad312) {
+			((Brad312)car).m2();
+		}else if (car instanceof Brad313) {
+			((Brad313)car).m3();
+		}
 	}
 	
 	

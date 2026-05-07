@@ -6,6 +6,10 @@ import tw.brad.apis.Bike;
 
 public class Brad34 {
 	public static void main(String[] args) {
+		
+		Integer a = 10;
+		System.out.println(a.intValue());
+		
 		Set set = new HashSet();
 		set.add("Brad");
 		set.add(new Bike());

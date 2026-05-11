@@ -15,7 +15,7 @@ import tw.brad.apis.SignPanel;
 
 public class MySign extends JFrame{
 	private SignPanel panel;
-	private JButton clear, undo, redo, color;
+	private JButton clear, undo, redo, color, saveObj, loadObj;
 	
 	public MySign() {
 		
@@ -28,8 +28,10 @@ public class MySign extends JFrame{
 		undo = new JButton("Undo");
 		redo = new JButton("Redo");
 		color = new JButton("Color");
+		saveObj = new JButton("Save Obj");
+		loadObj = new JButton("Load Obj");
 		top.add(clear);top.add(undo);top.add(redo);
-		top.add(color);
+		top.add(color);top.add(saveObj);top.add(loadObj);
 		
 		add(top, BorderLayout.NORTH);
 		

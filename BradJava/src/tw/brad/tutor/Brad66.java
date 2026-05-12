@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class Brad66 {
 	public static void main(String[] args) {
 		try {
-			URL url = new URL("https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvAgriculturalProduce.aspx");
+			URL url = new URL("https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx");
 			HttpURLConnection conn =  (HttpURLConnection)url.openConnection();
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(conn.getInputStream()));

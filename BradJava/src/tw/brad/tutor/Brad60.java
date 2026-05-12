@@ -8,11 +8,11 @@ import java.net.SocketException;
 public class Brad60 {
 
 	public static void main(String[] args) {
-		String mesg = "Hello, World";
+		String mesg = "Hello, BradV2";
 		byte[] data = mesg.getBytes();
 		try (DatagramSocket socket = new DatagramSocket();){
 			DatagramPacket packet = new DatagramPacket(data, data.length, 
-					InetAddress.getByName("10.0.102.74"), 8888);
+					InetAddress.getByName("10.0.102.255"), 8888);
 			socket.send(packet);
 			System.out.println("UDP Send OK");
 		} catch (Exception e) {

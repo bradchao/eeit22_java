@@ -2,13 +2,23 @@ package tw.brad.tutor;
 
 public class Brad67 {
 	public static void main(String[] args) {
+		System.out.println("start");
 		Brad671 t1 = new Brad671("A");
 		Brad671 t2 = new Brad671("B");
 		Thread t3 = new Thread(new Brad672("C"));
 		t1.start();
 		t2.start();
 		t3.start();
-		System.out.println("main");
+		
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		}catch(Exception e) {
+			
+		}
+		
+		System.out.println("end");
 	}
 }
 

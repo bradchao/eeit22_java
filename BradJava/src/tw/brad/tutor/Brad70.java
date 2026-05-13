@@ -30,7 +30,7 @@ public class Brad70 {
 }
 class Counter {
 	int count;
-	public void add() {
+	public synchronized void add() {
 		count++;
 	}
 }

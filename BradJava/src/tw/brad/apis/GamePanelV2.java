@@ -19,8 +19,8 @@ public class GamePanelV2  extends JPanel{
 	private String[] source = {"dir1/ball0.png","dir1/ball1.png",
 						"dir1/ball2.png","dir1/ball3.png"};
 	private BufferedImage[] ballImgs = new BufferedImage[source.length];
-	private int[] ballW = new int[source.length];
-	private int[] ballH = new int[source.length];
+	private int[] ballWs = new int[source.length];
+	private int[] ballHs = new int[source.length];
 	private ArrayList<BallTask> balls;
 	
 	public GamePanelV2() {
@@ -29,8 +29,8 @@ public class GamePanelV2  extends JPanel{
 		try {
 			for (int i=0; i<source.length; i++) {
 				ballImgs[i] = ImageIO.read(new File(source[i]));
-				ballW[i] = ballImgs[i].getWidth(); 
-				ballH[i] = ballImgs[i].getHeight();				
+				ballWs[i] = ballImgs[i].getWidth(); 
+				ballHs[i] = ballImgs[i].getHeight();				
 			}
 		}catch(Exception e) {
 			System.out.println(e);
@@ -55,18 +55,21 @@ public class GamePanelV2  extends JPanel{
 		int ball;
 		
 		BallTask(int ballX, int ballY){
-			this.ballX = ballX;
-			this.ballY = ballY;
 			dx = (int)(Math.random()*17-8);
 			dy = (int)(Math.random()*17-8);
 			ball = (int)(Math.random()*source.length);
+			ballW = ballWs[ball]; 
+			ballH = ballHs[ball];
+			
+			this.ballX = ballX - (int)(ballW / 2.0);
+			this.ballY = ballY - (int)(ballH / 2.0);
 		}
 		@Override
 		public void run() {
-			if (ballX < 0 || ballX + ballW > viewW) {
+			if (ballX < 0 || ballX + ballW  > viewW) {
 				dx *= -1;
 			}
-			if (ballY < 0 || ballY + ballH > viewH) {
+			if (ballY  < 0 || ballY + ballH  > viewH) {
 				dy *= -1;
 			}
 			

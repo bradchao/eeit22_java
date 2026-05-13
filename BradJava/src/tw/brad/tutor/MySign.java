@@ -14,12 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import tw.brad.apis.MyClock;
 import tw.brad.apis.SignPanel;
 
 public class MySign extends JFrame{
 	private SignPanel panel;
 	private JButton clear, undo, redo, color, saveObj, saveAsObj, loadObj, saveJPEG;
 	private File nowFile;
+	private MyClock myClock;
 	
 	public MySign() {
 		
@@ -43,9 +45,12 @@ public class MySign extends JFrame{
 		top.add(saveObj);top.add(saveAsObj);top.add(loadObj);
 		top.add(saveJPEG);
 		
+		myClock = new MyClock();
+		top.add(myClock);
+		
 		add(top, BorderLayout.NORTH);
 		
-		setSize(800,  600);
+		setSize(1024,  600);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		

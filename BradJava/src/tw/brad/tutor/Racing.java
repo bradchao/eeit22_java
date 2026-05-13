@@ -15,6 +15,10 @@ public class Racing extends JFrame implements ActionListener{
 	private JLabel[] lanes;
 	private Car[] cars;
 	private int rank;
+	private int state;
+	private final int STATE_RUNNING = 1;
+	private final int STATE_STOP = 2;
+	private final int STATE_INIT = 3;
 	
 	public Racing() {
 		super("Racing");
@@ -39,6 +43,9 @@ public class Racing extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		state = STATE_STOP;
+		init.setEnabled(true);
+		go.setEnabled(false);		
 		//initGame();
 	}
 	
@@ -79,6 +86,9 @@ public class Racing extends JFrame implements ActionListener{
 		for (int i=0; i<cars.length; i++) {
 			cars[i].interrupt();
 		}
+		state = STATE_STOP;
+		init.setEnabled(true);
+		go.setEnabled(false);
 	}
 	
 	public static void main(String[] args) {
@@ -86,15 +96,29 @@ public class Racing extends JFrame implements ActionListener{
 	}
 
 	private void initGame() {
-		rank = 0;
-		cars = new Car[8];
-		for (int i=0; i< cars.length; i++) {
-			cars[i] = new Car(i);
-		}	
+		if (state == STATE_STOP) {
+			state = STATE_INIT;
+			init.setEnabled(false);
+			go.setEnabled(true);
+			
+			
+			rank = 0;
+			cars = new Car[8];
+			for (int i=0; i< cars.length; i++) {
+				cars[i] = new Car(i);
+			}	
+		}
 	}
 	private void go() {
-		for (int i=0; i< cars.length; i++) {
-			cars[i].start();
+		if (state == STATE_INIT) {
+			state = STATE_RUNNING;
+			init.setEnabled(false);
+			go.setEnabled(false);
+			
+			
+			for (int i=0; i< cars.length; i++) {
+				cars[i].start();
+			}
 		}
 	}
 	@Override

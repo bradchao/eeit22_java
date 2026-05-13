@@ -14,6 +14,7 @@ public class Racing extends JFrame implements ActionListener{
 	private JButton go, init;
 	private JLabel[] lanes;
 	private Car[] cars;
+	private int rank;
 	
 	public Racing() {
 		super("Racing");
@@ -38,7 +39,7 @@ public class Racing extends JFrame implements ActionListener{
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		initGame();
+		//initGame();
 	}
 	
 	private class Car extends Thread {
@@ -52,13 +53,31 @@ public class Racing extends JFrame implements ActionListener{
 		@Override
 		public void run() {
 			for (int i=0; i<100; i++) {
-				data.append(">");
-				lanes[lane].setText(data.toString());
+				if (i== 99) {
+					data.append("> WINNER");
+					lanes[lane].setText(data.toString());
+					stopGame();
+				}else {
+					data.append(">");
+					lanes[lane].setText(data.toString());
+				}
 				try {
-					Thread.sleep(100);
+					Thread.sleep(10 + (int)(Math.random()*200));
 				} catch (InterruptedException e) {
+					break;
 				}
 			}
+			
+			
+//			data.append(++rank); 
+//			lanes[lane].setText(data.toString());
+			
+		}
+	}
+	
+	private void stopGame() {
+		for (int i=0; i<cars.length; i++) {
+			cars[i].interrupt();
 		}
 	}
 	
@@ -67,19 +86,17 @@ public class Racing extends JFrame implements ActionListener{
 	}
 
 	private void initGame() {
+		rank = 0;
 		cars = new Car[8];
 		for (int i=0; i< cars.length; i++) {
 			cars[i] = new Car(i);
 		}	
-		
 	}
-	
 	private void go() {
 		for (int i=0; i< cars.length; i++) {
 			cars[i].start();
 		}
 	}
-	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == go) {

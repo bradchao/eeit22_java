@@ -1,6 +1,8 @@
 package tw.brad.tutor;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import tw.brad.apis.Employee;
 
@@ -16,6 +18,17 @@ public class Brad76 {
 		Employee em7 = new Employee("Mary", 32000);
 		
 		List<Employee> employees = List.of(em1, em2, em3, em4,em5, em6, em7);
+		
+		List<String> mgrs = employees.stream()
+									.filter(e -> e.getSalary() >= 50000)
+									.map(Employee::getName)
+									.sorted()
+									.limit(2)
+									.collect(Collectors.toList());
+		System.out.println(mgrs);
+		
+		employees.stream().filter(e -> e.getSalary() >= 50000)
+							.forEach(e -> System.out.printf("%s : %d\n", e.getName(), e.getSalary()));
 		
 		
 		

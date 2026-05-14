@@ -1,5 +1,6 @@
 package tw.brad.apis;
 
+// Lombok
 public class Member {
 	private long id;
 	private String name;
@@ -28,7 +29,15 @@ public class Member {
 		public Builder email(String email) {this.email = email; return this;}
 		public Builder age(int age) {this.age = age; return this;}
 		
-		public Member build() {return new Member(this);}
+		public Member build() {
+			if (name == null || name.isEmpty()) {
+				throw new IllegalArgumentException();
+			}
+			if (passwd == null) {
+				passwd = "123456";
+			}
+			return new Member(this);
+		}
 	}
 
 	public long getId() {

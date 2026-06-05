@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class Jdbc13 {
 	public static void main(String[] args) {
+		final int rpp = 10;
 		final String URL = "jdbc:mysql://localhost:3306/brad";
 		final String SQL_QUERY = """
 				SELECT id, name,tel
@@ -25,24 +26,21 @@ public class Jdbc13 {
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Page: ");
-		String key = scanner.next();
+		int page = scanner.nextInt();
+		int start = (page -1) * rpp;
 		
 		
 		try (Connection conn =  DriverManager.getConnection(URL, prop);
 			PreparedStatement pstmt = conn.prepareStatement(SQL_QUERY);
 				){
-			String skey = "%" + key + "%";
-			pstmt.setString(1, skey);
-			pstmt.setString(2, skey);
-			pstmt.setString(3, skey);
-			pstmt.setString(4, skey);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, rpp);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				String name = rs.getString("cname");
+				String id = rs.getString("id");
+				String name = rs.getString("name");
 				String tel = rs.getString("tel");
-				String addr = rs.getString("addr");
-				String feature = rs.getString("feature");
-				System.out.printf("%s:%s:%s:%s\n", name, tel, addr, feature);
+				System.out.printf("%s:%s:%s\n", id, name, tel);
 				System.out.println("-------");
 			}
 			

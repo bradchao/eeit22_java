@@ -13,7 +13,7 @@ import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Jdbc10 {
+public class Jdbc11 {
 	public static void main(String[] args) {
 		try {
 			URL url = new URL("https://data.moa.gov.tw/Service/OpenData/ODwsv/ODwsvTravelFood.aspx");
@@ -76,7 +76,7 @@ public class Jdbc10 {
 				String picurl = food.getString("PicURL");
 				String lat = food.getString("Latitude");
 				String lng = food.getString("Longitude");
-				//------------------------------------------
+				
 				pstmt.setString(1, name);
 				pstmt.setString(2, tel);
 				pstmt.setString(3, addr);
@@ -93,12 +93,9 @@ public class Jdbc10 {
 					pstmt.setDouble(9, 0.0);
 				}
 				
-				pstmt.addBatch();
+				pstmt.executeUpdate();
 			}
-			
-			pstmt.executeBatch();
-			
-			System.out.println("OK2");
+			System.out.println("OK");
 		}catch(Exception e) {
 			System.out.println(e);
 		}

@@ -2,18 +2,16 @@ package tw.brad.tutor;
 
 import tw.brad.apis.BCrypt;
 
-public class Jdbc14 {
+public class Jdbc15 {
+
 	public static void main(String[] args) {
-		String passwd= "123456";
-		String hash_passwd = BCrypt.hashpw(passwd, BCrypt.gensalt());
-		System.out.println(hash_passwd);
-		
 		String input = "123456";
-		if (BCrypt.checkpw(input, hash_passwd)) {
+		String passwd = "$2a$10$0bfZqeCNGL.uCh1aep15ruKCxelEzOyCxfSRQBd7RWkVFu/Q/nxDO";
+		if (BCrypt.checkpw(input, passwd)) {
 			System.out.println("OK");
 		}else {
 			System.out.println("XX");
 		}
-		
 	}
+
 }

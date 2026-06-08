@@ -20,12 +20,17 @@ public class MemberDaoImpl implements MemberDao{
 			""";	
 	@Override
 	public boolean addMember(Member member) throws Exception {
-		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
-			PreparedStatement pstmt = conn.prepareStatement(SQL_ADD)){
-
-			pstmt.setString(1, member.getAccount());
-			pstmt.setString(2, BCrypt.hashpw(member.getPasswd(), BCrypt.gensalt()));
-			return pstmt.executeUpdate() > 0;
+		Member m = findByAccount(member.getAccount());
+		if (m == null) {
+			try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
+				PreparedStatement pstmt = conn.prepareStatement(SQL_ADD)){
+	
+				pstmt.setString(1, member.getAccount());
+				pstmt.setString(2, BCrypt.hashpw(member.getPasswd(), BCrypt.gensalt()));
+				return pstmt.executeUpdate() > 0;
+			}
+		}else {
+			return false;
 		}
 	}
 

@@ -20,6 +20,9 @@ public class Jdbc18 {
 			WHERE account = ?
 			""";
 	private static final String SQL_CHPASSWD = """
+			UPDATE member
+			SET passwd = ?
+			WHERE id = ?
 			""";
 	private static Properties prop = new Properties();
 
@@ -39,7 +42,8 @@ public class Jdbc18 {
 		try {
 			Member member = login(account,passwd);
 			if (member != null) {
-				System.out.printf("Welcome, %s (%d)", member.getAccount(), member.getId());
+				System.out.printf("Welcome, %s (%d)\n", member.getAccount(), member.getId());
+				chPasswd(member);
 			}else {
 				System.out.println("Login Failure");
 			}
@@ -68,5 +72,24 @@ public class Jdbc18 {
 			}
 		}
 	}
+	
+	private static boolean chPasswd(Member member) throws Exception{
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("Change Password: ");
+		String passwd = scanner.nextLine();
+		
+		if (passwd.length() > 0) {
+			try(Connection conn = DriverManager.getConnection(URL, prop);
+				PreparedStatement pstmt = conn.prepareStatement(SQL_CHPASSWD)){
+				pstmt.setString(1, BCrypt.hashpw(passwd, BCrypt.gensalt()));
+				pstmt.setLong(2, member.getId());
+				
+				return pstmt.executeUpdate() > 0;
+			}
+		}else {
+			throw new Exception("NO Change Password");
+		}
+	}
+	
 	
 }

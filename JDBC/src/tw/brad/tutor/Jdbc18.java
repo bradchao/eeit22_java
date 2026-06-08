@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -73,7 +74,7 @@ public class Jdbc18 {
 		}
 	}
 	
-	private static boolean chPasswd(Member member) throws Exception{
+	private static boolean chPasswd(Member member) throws SQLException, RuntimeException{
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Change Password: ");
 		String passwd = scanner.nextLine();
@@ -87,7 +88,7 @@ public class Jdbc18 {
 				return pstmt.executeUpdate() > 0;
 			}
 		}else {
-			throw new Exception("NO Change Password");
+			throw new RuntimeException("NO Change Password");
 		}
 	}
 	

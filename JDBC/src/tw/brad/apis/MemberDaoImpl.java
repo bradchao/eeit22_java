@@ -71,7 +71,7 @@ public class MemberDaoImpl implements MemberDao{
 			pstmt.setLong(1, id);
 			
 			try(ResultSet rs = pstmt.executeQuery();){
-				if (!rs.next()) {
+				if (rs.next()) {
 					return new Member(rs.getLong("id"), rs.getString("account"), null);
 				}
 			}
@@ -109,7 +109,7 @@ public class MemberDaoImpl implements MemberDao{
 			pstmt.setString(1, account);
 			
 			try(ResultSet rs = pstmt.executeQuery();){
-				if (!rs.next()) {
+				if (rs.next()) {
 					return new Member(rs.getLong("id"), rs.getString("account"), rs.getString("passwd"));
 				}
 			}
@@ -120,6 +120,10 @@ public class MemberDaoImpl implements MemberDao{
 	
 	@Override
 	public Member login(String account, String passwd) throws Exception {
+		Member member = findByAccount(account);
+		if (member != null && BCrypt.checkpw(passwd, member.getPasswd())) {
+			return member;
+		}
 		return null;
 	}
 

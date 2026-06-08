@@ -3,6 +3,8 @@ package tw.brad.apis;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDaoImpl implements MemberDao{
@@ -57,21 +59,67 @@ public class MemberDaoImpl implements MemberDao{
 		}
 	}
 
+	private static final String SQL_QUERY_ID = """
+			SELECT id, account, passwd
+			FROM member
+			WHERE id = ?
+			""";	
 	@Override
 	public Member findById(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
+			PreparedStatement pstmt = conn.prepareStatement(SQL_QUERY_ID)){
+			pstmt.setLong(1, id);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if (!rs.next()) {
+					return new Member(rs.getLong("id"), rs.getString("account"), null);
+				}
+			}
+			return null;
+		}
 	}
 
+	private static final String SQL_QUERY_ALL = """
+			SELECT id, account, passwd
+			FROM member
+			""";	
 	@Override
 	public List<Member> findAll() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<Member> list = new ArrayList<>();
+		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
+			PreparedStatement pstmt = conn.prepareStatement(SQL_QUERY_ALL)){
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				while (rs.next()) {
+					list.add(new Member(rs.getLong("id"), rs.getString("account"), null));
+				}
+			}
+			return list;
+		}
 	}
 
+	private static final String SQL_QUERY_ACCOUNT = """
+			SELECT id, account, passwd
+			FROM member
+			WHERE account = ?
+			""";	
+	private Member findByAccount(String account) throws Exception{
+		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
+			PreparedStatement pstmt = conn.prepareStatement(SQL_QUERY_ACCOUNT)){
+			pstmt.setString(1, account);
+			
+			try(ResultSet rs = pstmt.executeQuery();){
+				if (!rs.next()) {
+					return new Member(rs.getLong("id"), rs.getString("account"), rs.getString("passwd"));
+				}
+			}
+			return null;
+		}		
+	}
+	
+	
 	@Override
 	public Member login(String account, String passwd) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

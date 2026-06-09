@@ -26,9 +26,21 @@ public class Brad05 extends HttpServlet {
 			op = request.getParameter("op");
 			int r1, r2;
 			switch(op) {
-				case "1":r1 =  Integer.parseInt(x) + Integer.parseInt(y); result += r1; s1 = "selected";break;
-				case "2":r1 =  Integer.parseInt(x) - Integer.parseInt(y); result += r1; s2 = "selected";break;
-				case "3":r1 =  Integer.parseInt(x) * Integer.parseInt(y); result += r1; s3 = "selected";break;
+				case "1":
+					r1 = Integer.parseInt(x) + Integer.parseInt(y); 
+					result += r1; 
+					s1 = "selected";
+					break;
+				case "2":
+					r1 = Integer.parseInt(x) - Integer.parseInt(y); 
+					result += r1; 
+					s2 = "selected";
+					break;
+				case "3":
+					r1 = Integer.parseInt(x) * Integer.parseInt(y); 
+					result += r1; 
+					s3 = "selected";
+					break;
 				case "4":
 					r1 =  Integer.parseInt(x) / Integer.parseInt(y);
 					r2 =  Integer.parseInt(x) % Integer.parseInt(y);

@@ -1,11 +1,15 @@
 package tw.brad.controller;
 
+import java.io.IOException;
+import java.util.List;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import tw.brad.apis.Food;
+import tw.brad.dao.FoodDao;
 
 @WebServlet("/FoodMain")
 public class FoodMain extends HttpServlet {
@@ -17,10 +21,18 @@ public class FoodMain extends HttpServlet {
 		}catch(Exception e) {}
 		
 		// 2. Model
+		List<Food> foods = new FoodDao(page, 10).query();
+		// System.out.println(foods.size());
+		
+		request.setAttribute("foods", foods);
+		request.setAttribute("page", page);
+		request.setAttribute("prev", page - 1);
+		request.setAttribute("next", page + 1);
+		
 		
 		// 3. Viewer
 		response.setContentType("text/html; charset=UTF-8");
-		request.getRequestDispatcher("").forward(request, response);
+		request.getRequestDispatcher("FoodViewer").forward(request, response);
 	}
 
 }

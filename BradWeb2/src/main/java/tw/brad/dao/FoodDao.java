@@ -10,6 +10,7 @@ import java.util.List;
 import tw.brad.apis.Food;
 
 public class FoodDao {
+	// jdbc:sqlserver://localhost;encrypt=true;database=AdventureWorks;integratedSecurity=true;
 	private static final String URL = "jdbc:mysql://localhost:3306/brad";
 	private static final String USER = "root";
 	private static final String PASSWD = "root";

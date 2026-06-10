@@ -14,18 +14,27 @@ import java.io.PrintWriter;
 public class CalcViewer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		String x = (String)request.getAttribute("x");
+		String y = (String)request.getAttribute("y");
+		String result = (String)request.getAttribute("result");
+		
 		PrintWriter out = response.getWriter();
 		String webContent;
 		
 		try {
 			webContent = BradUtils.loadView();
+			String content = webContent.replaceAll("#x", x)
+							.replaceAll("#y", y)
+							.replaceAll("#r", result);
+			out.print(content);
 			
 		} catch (Exception e) {
 			System.out.println(e);
 			webContent = "Load Html Page Failure";
+			out.print(webContent);
 		}
 		
-		out.print(webContent);
+		response.flushBuffer();
 		
 	}
 

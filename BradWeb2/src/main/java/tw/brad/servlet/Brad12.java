@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tw.brad.apis.Bike;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,6 +20,12 @@ public class Brad12 extends HttpServlet {
 		
 		request.setAttribute("y", 35);
 		
+		Bike b1 = new Bike();
+		request.setAttribute("bike", b1);
+		
+		b1.upSpeed();b1.upSpeed();b1.upSpeed();b1.upSpeed();b1.upSpeed();
+		b1.upSpeed();b1.upSpeed();
+		
 		
 		//----------------
 		response.setContentType("text/html; charset=UTF-8");
@@ -26,6 +34,8 @@ public class Brad12 extends HttpServlet {
 		
 		out.println("<hr />");
 		dispatcher.include(request, response);
+		
+		
 		out.println("<hr />");
 		
 		out.println("<div>Footer</div>");

@@ -18,13 +18,6 @@ public class Brad16 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			System.out.println("OK");
-		} catch (ClassNotFoundException e) {
-			System.out.println(e);
-		}	
-		
 		final String URL = "jdbc:mysql://localhost:3306/brad?useSSL=false";
 		final String SQL = """
 				SELECT id, cname

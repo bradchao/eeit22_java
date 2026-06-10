@@ -3,6 +3,8 @@ package tw.brad.apis;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class BradUtils {
 
@@ -14,5 +16,13 @@ public class BradUtils {
 		bin.close();
 		return new String(data);
 	}
+
+	public static String loadView(String view) throws Exception {
+		String source = 
+			String.format("C:\\Users\\User\\git\\repository\\BradWeb2\\src\\main\\webapp\\views\\%s.html", view);
+		Path path = Path.of(source);
+		return  Files.readString(path);
+	}
+	
 	
 }

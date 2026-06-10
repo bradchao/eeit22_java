@@ -17,12 +17,13 @@ public class CalcViewer extends HttpServlet {
 		String x = (String)request.getAttribute("x");
 		String y = (String)request.getAttribute("y");
 		String result = (String)request.getAttribute("result");
+		String view = (String)request.getAttribute("view");
 		
 		PrintWriter out = response.getWriter();
 		String webContent;
 		
 		try {
-			webContent = BradUtils.loadView();
+			webContent = BradUtils.loadView(view);
 			String content = webContent.replaceAll("#x", x)
 							.replaceAll("#y", y)
 							.replaceAll("#r", result);

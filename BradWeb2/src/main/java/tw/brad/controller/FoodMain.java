@@ -21,9 +21,10 @@ public class FoodMain extends HttpServlet {
 		}catch(Exception e) {}
 		
 		// 2. Model
-		List<Food> foods = new FoodDao(page, 10).query();
+		List<Food> foods = new FoodDao(page, 7).query();
 		// System.out.println(foods.size());
 		
+		request.setAttribute("title", "Brad Big Company");
 		request.setAttribute("foods", foods);
 		request.setAttribute("page", page);
 		request.setAttribute("prev", page - 1);

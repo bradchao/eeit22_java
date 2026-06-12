@@ -14,13 +14,33 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function checkAccount(){
+				let url = "CheckAccount";
+				$.ajax({
+					url: url,
+					method: 'get',
+					data: JSON.stringify({
+						account: $('#account').val()
+					}),
+					success: function(data){
+						
+					},
+				});						
+			}
+			function checkForm(){
+				
+				return true;
+			}
+		</script>
 	</head>
 	<body>
 		<h1>Register Page</h1>
 		<hr />
 		<div><%= mesg %></div>
-		<form action="Register" method="post">
-			Account: <input name="account" /><br />
+		<form action="Register" method="post" onsubmit="return checkForm();">
+			Account: <input name="account" id="account" onblur="checkAccount()" /><span id="mesg"></span><br />
 			Password: <input type="password" name="passwd" /><br />
 			<input type="submit" value="Register" />
 		</form>

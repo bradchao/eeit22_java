@@ -3,6 +3,7 @@ package tw.brad.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import tw.brad.apis.BCrypt;
 import tw.brad.apis.Member;
@@ -16,6 +17,11 @@ public class MemberDao {
 				(account,passwd)
 			VALUES
 				(?,?)
+			""";
+	private static final String SQL_CHECKACCOUNT = """
+			SELECT count(account) count
+			FROM member
+			WHERE account = ?
 			""";
 	public boolean addMember(Member member) {
 		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
@@ -31,5 +37,19 @@ public class MemberDao {
 		}
 	}
 	
+	public boolean isAccountExist(String account) {
+		try(Connection conn = DriverManager.getConnection(URL, USER, PASSWD);
+			PreparedStatement pstmt = conn.prepareStatement(SQL_CHECKACCOUNT)){
+			
+			pstmt.setString(1, account);
+			try (ResultSet rs = pstmt.executeQuery()){
+				rs.next();
+				return rs.getInt("count") > 0;
+			}
+		}catch(Exception e) {
+			System.out.println(e);
+			return false;
+		}
+	}
 	
 }

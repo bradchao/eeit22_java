@@ -20,12 +20,16 @@
 				let url = "CheckAccount";
 				$.ajax({
 					url: url,
-					method: 'get',
+					method: 'post',
 					data: JSON.stringify({
 						account: $('#account').val()
 					}),
 					success: function(data){
-						
+						if (data.result){
+							$('#mesg').html("Account EXIST");
+						}else{
+							$('#mesg').html("");
+						}
 					},
 				});						
 			}

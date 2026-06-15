@@ -42,9 +42,35 @@ public class BradUtils {
 			map.put("picurl", gift.getString("Column1"));
 			gifts[i] = map;
 		}
-		
-		
 		return gifts;
+	}
+	
+	public static String order2JSON(SortedMap[] rows) {
+		JSONObject root = new JSONObject();
+		System.out.println(rows.length);
+		if (rows.length > 0) {
+			root.put("orderdate", rows[0].getOrDefault("OrderDate", ""));
+			root.put("employee", rows[0].getOrDefault("LastName", ""));
+			root.put("customer", String.format("%s(%s)", rows[0].getOrDefault("CompanyName", ""),
+					rows[0].getOrDefault("ContactName", "")) );
+			
+			JSONArray details = new JSONArray();
+			for (SortedMap<String, String> row : rows) {
+				JSONObject obj = new JSONObject();
+				
+				obj.put("pname", row.getOrDefault("ProductName", ""));
+				obj.put("price", row.getOrDefault("UnitPrice", ""));
+				obj.put("qty", row.getOrDefault("Quantity", ""));
+				
+				details.put(obj);
+			}
+			
+			root.put("details", details);
+			
+		}
+		
+		
+		return root.toString();
 	}
 	
 	public static String loadView() throws Exception {

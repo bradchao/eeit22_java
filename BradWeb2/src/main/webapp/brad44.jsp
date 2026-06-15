@@ -25,5 +25,6 @@ WHERE o.OrderID = 1234
 		WHERE o.OrderID = ?
 		<sql:param>${param.orderId }</sql:param>		
 	</sql:query>
+	${BradUtils.order2JSON(rs.rows) }
 </c:catch>
 ${err }

@@ -39,12 +39,12 @@
 			function search(){
 				$.ajax({
 					url: url,
-					method: "get",
+					method: "post",
 					data: {
-						"orderId": $('#orderId').val
+						"orderId": $('#orderId').val()
 					},
 					success: function(order){
-						
+						console.log(order);
 					}
 				});
 			}

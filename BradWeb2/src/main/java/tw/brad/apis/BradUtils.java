@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Random;
 
 public class BradUtils {
 	public static String calc(String x, String y) {
@@ -15,6 +16,10 @@ public class BradUtils {
 		}catch(Exception e) {
 			return "";
 		}
+	}
+	
+	public static int createScore() {
+		return new Random().nextInt(101);
 	}
 	public static String loadView() throws Exception {
 		String source = "C:\\Users\\User\\git\\repository\\BradWeb2\\src\\main\\webapp\\views\\view1.html";

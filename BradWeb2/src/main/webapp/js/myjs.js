@@ -34,7 +34,9 @@ window.onload = function(){
 		}
 		
 		webSocket.onmessage = function(event){
-			//console.log("Message");	
+			console.log(event);	
+			let mesgObj = JSON.parse(event.data);
+			log.innerHTML += mesgObj.message + "<br />";
 			
 		}
 		

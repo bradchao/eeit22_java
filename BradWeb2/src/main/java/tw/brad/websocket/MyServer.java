@@ -1,5 +1,6 @@
 package tw.brad.websocket;
 
+import java.io.IOException;
 import java.util.HashSet;
 
 import jakarta.websocket.OnClose;
@@ -28,17 +29,25 @@ public class MyServer {
 	
 	@OnMessage
 	public void onMessage(String mesg, Session session) {
-		System.out.println("onMessage:" + mesg);
+//		System.out.println("onMessage:" + mesg);
+		for (Session s : sessions) {
+			try {
+				s.getBasicRemote().sendText(mesg);
+			} catch (IOException e) {
+			}
+		}
 	}
 	
 	@OnClose
 	public void onClose(Session session) {
-		System.out.println("onClose");
+		//System.out.println("onClose");
+		sessions.remove(session);
 	}
 	
 	@OnError
 	public void onError(Session session, Throwable t) {
 		System.out.println("onError");
+		//sessions.remove(session);
 	}
 	
 	

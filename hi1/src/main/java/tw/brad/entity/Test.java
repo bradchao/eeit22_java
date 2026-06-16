@@ -13,10 +13,10 @@ public class Test {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	public long id;
 	
 	@Column(name = "cname")
-	private String cname;
+	protected String cname;
 	
 	@Column(name = "tel")
 	private String tel;

@@ -31,7 +31,18 @@ public class MyCenter {
 	
 	@OnMessage
 	public void onMessage(String mesg, Session session) {
-		
+		if (!isExistTeacher && mesg.contains("isTeacher")) {
+			isExistTeacher = true;
+			teacherSession = session;
+			System.out.println("Teacher enter...");
+		}else if (teacherSession == session){
+			for (Session studentSession : sessions) {
+				try {
+					studentSession.getBasicRemote().sendText(mesg);
+				} catch (IOException e) {
+				}
+			}
+		}
 	}
 	
 	@OnClose

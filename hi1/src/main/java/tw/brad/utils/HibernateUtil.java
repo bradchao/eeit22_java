@@ -13,7 +13,7 @@ public class HibernateUtil {
 			Configuration cfg = new Configuration();
 			cfg.configure("hibernate.cfg.xml");
 			
-			cfg.addAnnotatedClass(Test.class);
+			//cfg.addAnnotatedClass(Test.class);
 			
 			sessionFactory = cfg.buildSessionFactory();
 		}

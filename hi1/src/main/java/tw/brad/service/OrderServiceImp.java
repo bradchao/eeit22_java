@@ -150,19 +150,52 @@ public class OrderServiceImp implements OrderService{
 
 	@Override
 	public void removeItem(Long orderId, Long itemId) {
-		// TODO Auto-generated method stub
-		
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			
+			Order order = dao.findByIdWithItems(session, orderId)
+					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
+			
+			OrderItem item = order.getItems().stream()
+				.filter(i -> i.getId().equals(itemId))
+				.findFirst()
+				.orElseThrow(() -> new IllegalArgumentException("品項找不到"));
+			order.removeItem(item);
+			
+			transaction.commit();
+		}catch(Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		}				
 	}
 
 	@Override
 	public Order getOrderWithItems(Long orderId) {
-		// TODO Auto-generated method stub
-		return null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			return dao.findByIdWithItems(session, orderId)
+					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
+		}			
 	}
 
 	@Override
 	public void deleteOrder(Long orderId) {
-		// TODO Auto-generated method stub
+		Transaction transaction = null;
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			transaction = session.beginTransaction();
+			
+			Order order = dao.findByIdWithItems(session, orderId)
+					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
+			
+			dao.delete(session, order);
+			
+			transaction.commit();
+		}catch(Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+		}				
 		
 	}
 

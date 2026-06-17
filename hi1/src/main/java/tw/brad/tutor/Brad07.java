@@ -9,7 +9,7 @@ public class Brad07 {
 		MemberDao dao = new MemberDao();
 		
 		Member member = dao.findById(1);
-		System.out.println(member.getAccount());
+		System.out.println(member.getId() + ":" + member.getAccount());
 		
 		if (member != null) {
 			MemberInfo info = member.getMemberinfo();

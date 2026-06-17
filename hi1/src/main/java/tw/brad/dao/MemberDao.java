@@ -65,6 +65,15 @@ public class MemberDao {
  		return null;
  	}
 	
-	
+	public List<Member> findByAccountLike(String key){
+ 		try (Session session = HibernateUtil.getSessionFactory().openSession();){
+ 			String hql = "FROM Member WHERE account LIKE :key";
+ 			Query<Member> query = session.createQuery(hql, Member.class);
+ 			query.setParameter("key", "%" + key + "%");
+ 			return query.getResultList();
+ 		}catch (Exception e) {
+		}	
+ 		return null;		
+	}
 	
 }

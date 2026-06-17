@@ -10,6 +10,8 @@
 		<property name="hibernate.format_sql">true</property>
 		
 		<mapping class="tw.brad.entity.Test"></mapping>
+		<mapping class="tw.brad.entity.Member"></mapping>
+		<mapping class="tw.brad.entity.MemberInfo"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

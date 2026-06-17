@@ -1,10 +1,12 @@
 package tw.brad.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -50,7 +52,18 @@ public class Member {
 	public void setIcon(byte[] icon) {
 		this.icon = icon;
 	}
-	
+	//------------------------------
+	@OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+	private MemberInfo memberinfo;
+
+	public MemberInfo getMemberinfo() {
+		return memberinfo;
+	}
+
+	public void setMemberinfo(MemberInfo memberinfo) {
+		this.memberinfo = memberinfo;
+		memberinfo.setMember(this);
+	}
 	
 	
 	

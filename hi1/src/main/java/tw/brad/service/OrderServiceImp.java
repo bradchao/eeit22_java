@@ -199,4 +199,25 @@ public class OrderServiceImp implements OrderService{
 		
 	}
 
+	public Order getOrderById(Long orderId) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			return dao.findById(session, orderId)
+					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
+		}			
+	}
+
+	public void test1(Long orderId) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			Order order = dao.findById(session, orderId)
+					.orElseThrow(() -> new IllegalArgumentException("訂單找不到"));
+	 		List<OrderItem> items = order.getItems();
+	 		for (OrderItem item : items) {
+	 			System.out.println(item.getPname());
+	 		}
+			
+			
+		}			
+	}
+	
+	
 }

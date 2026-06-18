@@ -54,6 +54,34 @@ public class OrderDaoImp implements OrderDao{
 				.list();
 	}
 	//--------------------------
+	public List<Order> test1(Session session, String cname) {
+		String hql = """
+				SELECT o
+				FROM Order o
+				WHERE o.customer = :cname
+				""";
+		return session.createQuery(hql, Order.class).setParameter("cname", cname).list();
+	}
+	
+	public List<Order> test2(Session session) {
+		String hql = """
+				SELECT o
+				FROM Order o
+				ORDER BY o.odate
+				""";
+		return session.createQuery(hql, Order.class).list();
+	}
+	
+	public void test3() {
+		String hql = """
+				SELECT o
+				FROM Order o
+				JOIN o.items i
+				WHERE i.pname = :pname
+				ORDER BY o.id
+				""";		
+	}
+	
 	
 	
 }

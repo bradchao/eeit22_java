@@ -1,12 +1,15 @@
 package tw.brad.h2.tutor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Session;
 
 import tools.jackson.databind.ObjectMapper;
+import tw.brad.h2.dto.DetailItem;
 import tw.brad.h2.dto.OrderItem;
-import tw.brad.h2.entity.Employee;
 import tw.brad.h2.utils.HibernateUtil;
 
 public class Brad07 {
@@ -27,7 +30,7 @@ public class Brad07 {
 		try(Session session = HibernateUtil.getSessionFactory().openSession()){
 			List<Object[]> result = 
 				session.createQuery(hql, Object[].class)
-					.setParameter("orderId", 10248)
+					.setParameter("orderId", 10249)
 					.getResultList();
 			//---------------------------------
 			for (Object[] row : result) {
@@ -36,15 +39,42 @@ public class Brad07 {
 				System.out.println(row[2]);
 			}
 			//----------------------
-			System.out.println("----------JSON----------");
+			System.out.println("----------JSON(1)----------");
 			ObjectMapper mapper = new ObjectMapper();
 			String json = mapper.writerWithDefaultPrettyPrinter()
 							.writeValueAsString(result);
 			System.out.println(json);
+			System.out.println("----------JSON(2)----------");
+			String json2 = toObjectJson(result);
+			
 			System.out.println("----------Object----------");
-			toOrderItem(json);
+			toOrderItem(json2);
 			
 		}	
+	}
+	
+	private static String toObjectJson(List<Object[]> result) {
+		Map<String,Object> output = new HashMap<>();
+		output.put("customer", result.get(0)[0]);
+		output.put("employee", result.get(0)[1]);
+		output.put("date", result.get(0)[2]);
+		
+		List<Map<String,Object>> details = new ArrayList<>();
+		for (Object[] row : result) {
+			Map<String,Object> detail = new HashMap<>();
+			detail.put("pname", row[3]);
+			detail.put("price", row[4]);
+			detail.put("qty", row[5]);
+			details.add(detail);
+		}
+		
+		output.put("details", details);
+		//-------------------------------------
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writerWithDefaultPrettyPrinter()
+						.writeValueAsString(output);
+		return json;		
 	}
 	
 	private static void toOrderItem(String json) {
@@ -54,6 +84,12 @@ public class Brad07 {
 		System.out.println(order.employee);
 		System.out.println(order.date);
 		
+		for (DetailItem detail : order.details) {
+			System.out.println(detail.pname);
+			System.out.println(detail.price);
+			System.out.println(detail.qty);
+			System.out.println("----");
+		}
 		
 		
 	} 

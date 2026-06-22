@@ -35,7 +35,6 @@ public class OrderDetail {
 	@JoinColumn(name = "OrderID")
 	private Order order;
 	
-
 	public int getOrderId() {
 		return orderId;
 	}

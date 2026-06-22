@@ -11,6 +11,9 @@
 		
 		<mapping class="tw.brad.h2.entity.Customer"></mapping>
 		<mapping class="tw.brad.h2.entity.Employee"></mapping>
+		<mapping class="tw.brad.h2.entity.Order"></mapping>
+		<mapping class="tw.brad.h2.entity.OrderDetail"></mapping>
+		<mapping class="tw.brad.h2.entity.Product"></mapping>
 		
 	</session-factory>
 </hibernate-configuration>

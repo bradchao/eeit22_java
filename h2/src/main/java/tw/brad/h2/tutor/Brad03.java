@@ -13,7 +13,7 @@ public class Brad03 {
 			String sql = """
 				SELECT EmployeeID, FirstName, LastName, Title
 				FROM employees
-				ORDER BY Title ASC
+				ORDER BY Title ASC, LastName DESC
 				""";
 			List<Employee> employees = 
 				session.createNativeQuery(sql, Employee.class).getResultList();

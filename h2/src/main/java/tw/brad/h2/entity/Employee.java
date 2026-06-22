@@ -29,4 +29,13 @@ public class Employee {
 	@Column(name = "Title")
 	private String title;
 
+	// Brad05 的 multiselect 順序
+//	public Employee(int employeeId, String firstName, String lastName, String title) {
+//		this.employeeId = employeeId;
+//		this.lastName = lastName;
+//		this.firstName = firstName;
+//		this.title = title;
+//	}
+	
+	
 }

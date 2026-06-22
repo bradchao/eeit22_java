@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import tools.jackson.databind.ObjectMapper;
+import tw.brad.h2.dto.OrderItem;
 import tw.brad.h2.entity.Employee;
 import tw.brad.h2.utils.HibernateUtil;
 
@@ -40,15 +41,21 @@ public class Brad07 {
 			String json = mapper.writerWithDefaultPrettyPrinter()
 							.writeValueAsString(result);
 			System.out.println(json);
-			
-			
-			
-			
-			
-			
-			
+			System.out.println("----------Object----------");
+			toOrderItem(json);
 			
 		}	
 	}
+	
+	private static void toOrderItem(String json) {
+		ObjectMapper mapper = new ObjectMapper();
+		OrderItem order = mapper.readValue(json, OrderItem.class);
+		System.out.println(order.customer);
+		System.out.println(order.employee);
+		System.out.println(order.date);
+		
+		
+		
+	} 
 
 }

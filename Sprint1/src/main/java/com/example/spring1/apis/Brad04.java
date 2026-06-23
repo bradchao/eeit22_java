@@ -1,6 +1,8 @@
 package com.example.spring1.apis;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +34,42 @@ public class Brad04 {
 		System.out.println(user.getName());
 		System.out.println(user.getAge());
 		System.out.println(user.getGender());
+	}
+	
+	@RequestMapping("/test2/{name}/{id}")
+	public void test2(@PathVariable String name, @PathVariable String id) {
+		System.out.println(name);
+		System.out.println(id);
+	}
+	
+	@RequestMapping("/test3")
+	public void test3(@RequestHeader(name = "Content-Type") String contentType,
+			@RequestHeader String x) {
+		System.out.println(contentType);
+		System.out.println(x);
+	}
+	
+	@RequestMapping("/test4/{name}/{id}")
+	public void test4(
+			@RequestParam(required = false, defaultValue = "0") String xx, 
+			@RequestParam(required = false, defaultValue = "0") String yy,
+			@RequestBody User user,
+			@PathVariable String name, @PathVariable String id,
+			@RequestHeader(name = "Content-Type") String contentType,
+			@RequestHeader String x
+			) {
+		System.out.printf("%s:%s\n", xx, yy);
+		System.out.println("----");
+		System.out.println(user.getName());
+		System.out.println(user.getAge());
+		System.out.println(user.getGender());
+		System.out.println("----");
+		System.out.println(name);
+		System.out.println(id);
+		System.out.println("----");
+		System.out.println(contentType);
+		System.out.println(x);
+		
 	}
 	
 }

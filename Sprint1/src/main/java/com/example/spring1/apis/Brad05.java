@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.spring1.utils.User;
 
 @RestController
-@RequestMapping("/members")
+@RequestMapping("/restful/members")
 public class Brad05 {
 
 	@GetMapping("")

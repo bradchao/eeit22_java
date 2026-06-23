@@ -16,4 +16,6 @@ public class Hotel {
 	
 	@JsonProperty("Tel")
 	private String tel;
+	
+	private int error;
 }

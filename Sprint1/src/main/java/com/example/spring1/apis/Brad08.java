@@ -27,6 +27,8 @@ import jakarta.validation.Valid;
 @RequestMapping("/members")
 public class Brad08 {
 
+	public Brad08() {System.out.println("Brad08");}
+	
 	@Autowired
 	private NamedParameterJdbcTemplate jdbc;
 	

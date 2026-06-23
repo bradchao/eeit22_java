@@ -6,6 +6,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.spring1.utils.User;
 
+import tools.jackson.databind.ObjectMapper;
+
 @Configuration
 public class MyConfig {
 	public MyConfig() {System.out.println("MyConfig()");}
@@ -22,6 +24,11 @@ public class MyConfig {
 	@Bean
 	public RestTemplate m2() {
 		return new RestTemplate();
+	}
+
+	@Bean
+	public ObjectMapper m3() {
+		return new ObjectMapper();
 	}
 	
 }

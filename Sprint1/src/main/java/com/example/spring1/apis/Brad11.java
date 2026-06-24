@@ -37,6 +37,9 @@ public class Brad11 {
 	
 	@GetMapping(value = {"/orders", "/orders/{orderId}"})
 	public List<Order> test2(@PathVariable(required = false) Integer orderId) {
+		boolean isOrderId = orderId != null;
+		HashMap<String, Integer> params = new HashMap<>();
+		
 		String sql = """
 				SELECT o.OrderID id, o.OrderDate odate,
 					p.ProductName pname, 
@@ -44,20 +47,30 @@ public class Brad11 {
 				FROM orders o
 				JOIN orderdetails od ON o.OrderID = od.OrderID
 				JOIN products p ON od.ProductID = p.ProductID
-				WHERE o.OrderID = :orderId
 				""";
-		HashMap<String, Integer> params = new HashMap<>();
-		params.put("orderId", orderId);
+		if (isOrderId) {
+			sql += " WHERE o.OrderID = :orderId";	
+			params.put("orderId", orderId);
+		}
 		
 		List<Order> orders = new ArrayList<>();
 		
 		List<Map<String,Object>> details = jdbc.queryForList(sql, params);
 		
-		Order order = new Order();
-		order.setOrderId((Integer)details.get(0).get("id"));
-		order.setOrderDate(((LocalDateTime)(details.get(0).get("odate"))).toString());
+//		Order order = new Order();
+//		order.setOrderId((Integer)details.get(0).get("id"));
+//		order.setOrderDate(((LocalDateTime)(details.get(0).get("odate"))).toString());
 		
+		int nowOrderId = 0; Order order = null;
 		for (Map<String,Object> detail: details) {
+			int oid = (Integer)detail.get("id");
+			if (oid != nowOrderId) {
+				order = new Order();
+				order.setOrderId(oid);
+				order.setOrderDate(((LocalDateTime)(detail.get("odate"))).toString());
+				orders.add(order);
+				nowOrderId = oid;
+			}
 			OrderDetail od = new OrderDetail();
 			od.setId((Integer)detail.get("id"));
 			od.setPname((String)detail.get("pname"));
@@ -66,7 +79,7 @@ public class Brad11 {
 			order.getDetails().add(od);
 		}
 		
-		orders.add(order);
+		
 		
 		return orders;
 		

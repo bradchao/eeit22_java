@@ -9,4 +9,7 @@ import com.example.spring3.entity.Member;
 @Repository
 public interface MemberRepository extends  JpaRepository<Member, Long>{
 	boolean existsByAccount(String account);
+	
+	
+	
 }

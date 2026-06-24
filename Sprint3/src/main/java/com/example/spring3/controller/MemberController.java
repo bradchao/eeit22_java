@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring3.entity.Member;
+import com.example.spring3.repository.MemberRepository;
 import com.example.spring3.service.MemberService;
 
 @RestController
@@ -20,6 +21,7 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
+	
 	/*
 	 * request: account=?
 	 * response: true/false
@@ -43,5 +45,23 @@ public class MemberController {
 		Map<String,Boolean> map = Map.of("success", isSuccess);
 		return ResponseEntity.ok(map);
 	}
+	
+	/*
+	 * request: {account:xxx, passwd: xxx}
+	 * response: {"success": true/false}
+	 */
+	@PostMapping("/login")
+	public ResponseEntity<Map<String,Boolean>> login(
+			@RequestBody Map<String,String> body){
+		String account = body.get("account");
+		String passwd = body.get("passwd");
+		
+		boolean isSuccess = service.login(account, passwd);
+		
+		Map<String,Boolean> map = Map.of("success", isSuccess);
+		return ResponseEntity.ok(map);
+	}
+	
+	
 	
 }

@@ -26,4 +26,14 @@ public class MemberService {
 		return m!= null;
 	}
 	
+	public boolean login(String account, String passwd) {
+		Member member = repository.findByAccount(account).orElse(null);
+		if (member != null && BCrypt.checkpw(passwd, member.getPasswd()) ) {
+			return  true;
+		}
+		return false;
+	}
+	
+	
+	
 }

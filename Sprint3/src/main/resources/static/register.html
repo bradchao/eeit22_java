@@ -5,6 +5,7 @@
 		<title>Brad Big Company</title>
 	</head>
 	<body>
+		<h1>Register Page</h1>
 		<form id="regForm">
 			Account: <input id="account" /><span id="mesg"></span><br />
 			Password: <input type="password" id="passwd" /><br />
@@ -48,6 +49,12 @@
 				
 				let json = await res.json();
 				console.log(json);
+				
+				if (json.success){
+					location.href = "login.html";
+				}else{
+					result.textContent = "Register Failure";
+				}
 				
 				
 				

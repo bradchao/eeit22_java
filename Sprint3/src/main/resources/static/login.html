@@ -8,8 +8,8 @@
 			$(document).ready(function(){
 				$('#loginForm').on("submit", function(e){
 					e.preventDefault();
-					let account = $('account').val();
-					let passwd = $('passwd').val();
+					let account = $('#account').val();
+					let passwd = $('#passwd').val();
 					
 					$.ajax({
 						url : '/api/members/login',

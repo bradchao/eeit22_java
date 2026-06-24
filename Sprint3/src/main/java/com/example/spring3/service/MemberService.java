@@ -1,7 +1,10 @@
 package com.example.spring3.service;
 
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.example.spring3.entity.Member;
@@ -33,7 +36,19 @@ public class MemberService {
 		}
 		return false;
 	}
-	
+	public boolean loginV2(String account, String passwd) {
+		Member member = new Member();
+		member.setAccount(account);
+		Example<Member> ex = Example.of(member);
+		if (repository.exists(ex)) {
+			List<Member> members = repository.findAll(ex);
+			Member dbMember = members.get(0);
+			if (BCrypt.checkpw(passwd, dbMember.getPasswd())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }

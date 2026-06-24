@@ -56,7 +56,8 @@ public class MemberController {
 		String account = body.get("account");
 		String passwd = body.get("passwd");
 		
-		boolean isSuccess = service.login(account, passwd);
+		//boolean isSuccess = service.login(account, passwd);
+		boolean isSuccess = service.loginV2(account, passwd);
 		
 		Map<String,Boolean> map = Map.of("success", isSuccess);
 		return ResponseEntity.ok(map);

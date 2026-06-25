@@ -1,5 +1,6 @@
 package com.example.spring3.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,6 +94,20 @@ public class MemberController {
 		session.invalidate();
 		return ResponseEntity.ok(Map.of("success", true));
 	}
+	
+	@PostMapping("/status")
+	public ResponseEntity<Map<String,Object>> status(HttpSession session) {
+		Object member = session.getAttribute("member");
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("success", member != null);
+		map.put("member", member);
+		
+		return ResponseEntity.ok(map);
+		
+	}
+	
+	
 	
 	
 	

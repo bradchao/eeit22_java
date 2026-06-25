@@ -23,6 +23,7 @@
 				.fail(function(){location.href = "login.html";});
 				//-----------------------------------------------
 				$('#logout').click(function(){
+					//location.href = "login.html";
 					$.ajax({
 						url: "/api/members/logout",
 						method: 'GET',

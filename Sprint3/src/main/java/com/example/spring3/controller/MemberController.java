@@ -1,7 +1,9 @@
 package com.example.spring3.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.spring3.config.ReadConfig;
+import com.example.spring3.dto.MemberForm;
 import com.example.spring3.entity.Member;
-import com.example.spring3.repository.MemberRepository;
 import com.example.spring3.service.MemberService;
 
 import jakarta.servlet.http.HttpSession;
@@ -145,6 +149,36 @@ public class MemberController {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+	}
+	
+	@Autowired
+	private ReadConfig readConfig;
+	
+	@PostMapping("/test2")
+	public void test2(@ModelAttribute MemberForm memberForm) {
+		System.out.println(memberForm.getAccount());
+		System.out.println(memberForm.getFiles().size());
+		System.out.println(readConfig.getUploadDir());
+		
+		File here = new File(".");
+		System.out.println(here.getAbsolutePath());
+		
+		List<MultipartFile> files = memberForm.getFiles();
+		for (MultipartFile file : files) {
+			if (!file.isEmpty()) {
+				try {
+					file.transferTo(new File(
+						here.getAbsolutePath()+"/"+
+						readConfig.getUploadDir()+"/"+
+						memberForm.getAccount()+"_"+file.getOriginalFilename()));
+				}catch(Exception e) {
+					System.out.println(e);
+				}
+			}
+		}
+		
+		
+		
 	}
 	
 	

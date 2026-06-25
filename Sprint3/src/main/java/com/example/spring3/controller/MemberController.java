@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -95,6 +97,13 @@ public class MemberController {
 		return ResponseEntity.ok(Map.of("success", true));
 	}
 	
+	@Autowired
+	@Qualifier("companyName")
+	private String companyName;
+	
+	@Value("${company.tel}")
+	private String companyTel;
+	
 	@PostMapping("/status")
 	public ResponseEntity<Map<String,Object>> status(HttpSession session) {
 		Object member = session.getAttribute("member");
@@ -102,6 +111,8 @@ public class MemberController {
 		Map<String,Object> map = new HashMap<>();
 		map.put("success", member != null);
 		map.put("member", member);
+		map.put("companyName", companyName);
+		map.put("companyTel", companyTel);
 		
 		return ResponseEntity.ok(map);
 		

@@ -15,6 +15,8 @@ import com.example.spring3.entity.Member;
 import com.example.spring3.repository.MemberRepository;
 import com.example.spring3.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/api/members")
 public class MemberController {
@@ -61,6 +63,34 @@ public class MemberController {
 		
 		Map<String,Boolean> map = Map.of("success", isSuccess);
 		return ResponseEntity.ok(map);
+	}
+	
+	@PostMapping("/loginV2")
+	public ResponseEntity<Map<String,Boolean>> login(
+			@RequestBody Map<String,String> body,
+			HttpSession session
+			){
+		String account = body.get("account");
+		String passwd = body.get("passwd");
+		
+		Member member = service.loginV3(account, passwd);
+		
+		Map<String,Boolean> map;
+		if (member != null) {
+			session.setAttribute("member", member);
+			map = Map.of("success", true);
+		}else {
+			session.invalidate();
+			map = Map.of("success", false);
+		}
+		
+		return ResponseEntity.ok(map);
+	}
+	
+	@RequestMapping("/logout")
+	public ResponseEntity<Map<String,Boolean>> logout(HttpSession session) {
+		session.invalidate();
+		return ResponseEntity.ok(Map.of("success", true));
 	}
 	
 	

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				// 檢查 Session
+				$.ajax({
+					url: "/api/members/status",
+					method: 'POST',
+					dataType: 'json'
+				})
+				.done(function(data){
+					console.log(data);
+					if (data.success){
+						
+					}else{
+						location.href = "login.html";
+					}
+				})
+				.fail(function(){location.href = "login.html";});
+				//-----------------------------------------------
+				$('#logout').click(function(){
+					$.ajax({
+						url: "/api/members/logout",
+						method: 'GET',
+						dataType: 'json'						
+					}).always(function(){location.href = "login.html";});
+				});
+				//-----------------------------------------------
+				
+				
+				
+				
+				
+			});
+		
+		</script>
+	</head>
+	<body>
+		<h1 id="companyName">Title</h1>
+		<h1 id="companyTel">1234567</h1>
+		<hr />
+		<div id="welcome">Welcome, kevin</div>
+		<div><img id="icon" /></div>
+		<button id="logout">Logout</button>
+		<hr />
+		<table id="hotelTable">
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Tel</th>
+				<th>Address</th>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</body>
+</html>

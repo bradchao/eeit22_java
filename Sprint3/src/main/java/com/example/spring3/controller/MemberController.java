@@ -89,6 +89,7 @@ public class MemberController {
 	
 	@RequestMapping("/logout")
 	public ResponseEntity<Map<String,Boolean>> logout(HttpSession session) {
+		System.out.println("Logout");
 		session.invalidate();
 		return ResponseEntity.ok(Map.of("success", true));
 	}

@@ -1,5 +1,6 @@
 package com.example.spring3.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring3.entity.Member;
 import com.example.spring3.repository.MemberRepository;
@@ -118,7 +122,30 @@ public class MemberController {
 		
 	}
 	
+	@Autowired
+	private NamedParameterJdbcTemplate jdbc;
 	
+	@PostMapping("/{id}")
+	public void test1(@PathVariable Long id,
+			@RequestParam MultipartFile upload) {
+		
+		try {
+			byte[] bytes = upload.getBytes();
+			String sql = """
+					UPDATE member
+					SET icon = :icon
+					WHERE id = :id
+					""";
+			Map<String,Object> params = Map.of(
+					"id", id,
+					"icon", bytes
+					);
+			int n = jdbc.update(sql, params);
+			System.out.println(n);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
 	
 	
 	

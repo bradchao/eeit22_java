@@ -3,6 +3,11 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		<style type="text/css">
+			table {border-collapse: collapse; width: 90%; margin: 20px}
+			th, td {border: 1px solid #ccc; padding: 8px; text-align: center}
+			th {background-color: #f2f2f2}
+		</style>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
@@ -40,12 +45,14 @@
 				//-----------------------------------------------
 				let nowPage = 0;
 				let rpp = 10;
+				let totalPage = 0;
+				let isLast = false;
 				
 				$('#prev').click(() => {
-					if (nowPage > 0 ) loadHotel(nowPage - 1);
+					if (nowPage > 0) loadHotel(nowPage - 1);
 				});
 				$('#next').click(() => {
-					loadHotel(nowPage + 1);
+					if (nowPage + 1< totalPage) loadHotel(nowPage + 1);
 				});
 				
 				function loadHotel(page){
@@ -55,7 +62,27 @@
 						dataType: 'json'
 					})
 					.done(result => {
-						console.log(result);
+						//console.log(result);
+						nowPage = result.page;
+						totalPage = result.totalPage;
+						isLast = result.isLast;
+						$('#page').text(`${nowPage + 1} / ${totalPage}`);
+						
+						let tbody = $('#hotelTable tbody').empty();
+						result.data.forEach(hotel => {
+							tbody.append(
+									`
+									<tr>
+										<td>${hotel.id}</td>
+										<td>${hotel.name}</td>
+										<td>${hotel.tel}</td>
+										<td>${hotel.addr}</td>
+									</tr>
+									`
+								);
+						});
+						
+						
 						
 					});
 				}

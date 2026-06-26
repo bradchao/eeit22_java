@@ -38,11 +38,29 @@
 					}).always(function(){location.href = "login.html";});
 				});
 				//-----------------------------------------------
+				let nowPage = 0;
+				let rpp = 10;
 				
+				$('#prev').click(() => {
+					if (nowPage > 0 ) loadHotel(nowPage - 1);
+				});
+				$('#next').click(() => {
+					loadHotel(nowPage + 1);
+				});
 				
+				function loadHotel(page){
+					$.ajax({
+						url : `/api/hotels?page=${page}&rpp=${rpp}`,
+						method: 'GET',
+						dataType: 'json'
+					})
+					.done(result => {
+						console.log(result);
+						
+					});
+				}
 				
-				
-				
+				loadHotel(nowPage);
 			});
 		
 		</script>
@@ -55,6 +73,11 @@
 		<div><img id="icon" /></div>
 		<button id="logout">Logout</button>
 		<hr />
+		<div>
+			<button id="prev">Prev</button> |
+			<span id="page"> 2 / 9 </span> |
+			<button id="next">Next</button>
+		</div>
 		<table id="hotelTable">
 			<thead>
 				<th>ID</th>

@@ -2,6 +2,9 @@ package com.example.spring3.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -181,12 +184,24 @@ public class MemberController {
 	}
 	
 	@PostMapping("/upload/base64")
-	public void test3(@RequestBody Base64Upload request) {
+	public ResponseEntity<String> test3(@RequestBody Base64Upload request) {
 		System.out.println(request.getFileName());
 		System.out.println(request.getContentType());
-		// request.getBase64()
+		System.out.println(request.getBase64().length());
 		
-		
+		try {
+			byte[] fileBytes = Base64.getDecoder().decode(request.getBase64());
+			
+			Path uploadDir = Path.of(readConfig.getUploadDir());
+			Path filePath = uploadDir.resolve(request.getFileName());
+			System.out.println(filePath.toString());
+			Files.write(filePath, fileBytes);
+			
+			return ResponseEntity.ok("Upload Success");
+		}catch(Exception e) {
+			System.out.println(e);
+			return ResponseEntity.badRequest().body("Upload Failure");
+		}
 		
 		
 	}

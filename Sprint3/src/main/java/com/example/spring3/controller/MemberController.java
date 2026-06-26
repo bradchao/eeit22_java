@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.spring3.config.ReadConfig;
+import com.example.spring3.dto.Base64Upload;
 import com.example.spring3.dto.MemberForm;
 import com.example.spring3.entity.Member;
 import com.example.spring3.service.MemberService;
@@ -176,6 +177,15 @@ public class MemberController {
 				}
 			}
 		}
+		
+	}
+	
+	@PostMapping("/upload/base64")
+	public void test3(@RequestBody Base64Upload request) {
+		System.out.println(request.getFileName());
+		System.out.println(request.getContentType());
+		// request.getBase64()
+		
 		
 		
 		

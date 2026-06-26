@@ -189,6 +189,10 @@ public class MemberController {
 		System.out.println(request.getContentType());
 		System.out.println(request.getBase64().length());
 		
+		// 1. save table => 1. String: request.getBase64()
+		//					2. blob: fileBytes
+		// 2. sabe file => fileBytes
+		
 		try {
 			byte[] fileBytes = Base64.getDecoder().decode(request.getBase64());
 			

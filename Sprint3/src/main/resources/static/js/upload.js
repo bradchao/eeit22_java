@@ -33,7 +33,7 @@ function uploadFile(){
 		alert("File Read Failure");
 	};
 	
-	reader.readAsDataURL(file);
+	reader.readAsDataURL(file);		// 100 芬重要
 	
 	
 }

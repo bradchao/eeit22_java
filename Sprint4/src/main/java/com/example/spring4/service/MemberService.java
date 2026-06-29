@@ -10,6 +10,7 @@ import com.example.spring4.entity.Member;
 import com.example.spring4.repo.InfoRepo;
 import com.example.spring4.repo.MemberRepo;
 
+@Service
 public class MemberService {
 	@Autowired
 	private MemberRepo memberRepo;
@@ -24,9 +25,23 @@ public class MemberService {
 		return memberRepo.save(member);
 	}
 
-	public void setInfo2Member(Info info, Long id) {
-		
+	
+	public Info setInfo2Member(Info info, Long memberId) {
+		Member member = memberRepo.findById(memberId).orElse(null);
+		if (member != null) {
+			Info i = member.getInfo();
+			if (i != null) {
+				info.setId(memberId);
+			}
+			member.setInfo(info);
+			Member save = memberRepo.save(member);
+			return save.getInfo();
+		}
+		return null;
 	}
 	
+	public Member findMemberById(Long memberId) {
+		return memberRepo.findById(memberId).orElse(null);
+	}
 	
 }

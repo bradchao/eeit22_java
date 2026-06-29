@@ -25,8 +25,8 @@ public class Member {
 	private Info info;
 	
 	public void setInfo(Info info) {
+		this.info = info;
 		if (info != null) {
-			this.info = info;
 			info.setMember(this);
 		}
 	}

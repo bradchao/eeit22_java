@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring4.dto.CustomerDto;
+import com.example.spring4.dto.OrderDetailDto;
 import com.example.spring4.dto.OrderDto;
 import com.example.spring4.entity.Customer;
 import com.example.spring4.entity.Order;
+import com.example.spring4.entity.OrderDetail;
 import com.example.spring4.repo.CustomerRepo;
 
 @RestController
@@ -54,7 +56,17 @@ public class CustomerController {
 		
 		ArrayList<OrderDto> orderList = new ArrayList<OrderDto>();
 		for (Order order : orders) {
-			orderList.add(new OrderDto(order.getOrderid(), order.getOrderdate()));
+			List<OrderDetail> details = order.getOrderDetails();
+			
+			ArrayList<OrderDetailDto> detailDtos = new ArrayList<OrderDetailDto>();
+			for (OrderDetail detail : details) {
+				detailDtos.add(
+					new OrderDetailDto(
+							detail.getUnitPrice(), 
+							detail.getQuantity(), 
+							detail.getProduct().getProductName()));
+			}
+			orderList.add(new OrderDto(order.getOrderid(), order.getOrderdate(), detailDtos));
 		}
 		
 		CustomerDto cDto = new CustomerDto(

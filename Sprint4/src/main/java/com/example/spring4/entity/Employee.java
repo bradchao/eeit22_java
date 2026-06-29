@@ -1,8 +1,11 @@
 package com.example.spring4.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +32,7 @@ public class Employee {
 	@Column(name = "Title")
 	private String title;
 	//----------------------
+	@OneToMany(mappedBy = "employee")
+	private List<Order> orders;
 	
 }

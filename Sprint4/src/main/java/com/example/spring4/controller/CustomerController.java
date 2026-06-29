@@ -1,5 +1,6 @@
 package com.example.spring4.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.spring4.dto.CustomerDto;
 import com.example.spring4.entity.Customer;
+import com.example.spring4.entity.Order;
 import com.example.spring4.repo.CustomerRepo;
 
 @RestController
@@ -42,6 +45,17 @@ public class CustomerController {
 		
 	}
 	
-	
+	@GetMapping("/v3/{id}")
+	public ResponseEntity<CustomerDto> test3(@PathVariable String id){
+		Customer c = repo.findById(id).orElse(null);
+		List<Order> orders =  c.getOrders();
+		
+		for (Order order : orders) {
+			
+		}
+		
+		
+		return null;
+	}	
 	
 }

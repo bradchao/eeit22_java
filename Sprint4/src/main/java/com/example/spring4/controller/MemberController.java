@@ -4,7 +4,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,6 +54,24 @@ public class MemberController {
 		return ResponseEntity.ok(saveMember);
 	}
 	
+	@PutMapping("/{memberId}/info")
+	public ResponseEntity<Info> setMemberInfo(@PathVariable Long memberId,
+			@RequestBody Map<String,Object> body){
+
+		Info info = new Info();
+		info.setBirthday((String)body.get("birthday"));
+		info.setTel((String)body.get("tel"));
+		info.setIsMale((Boolean)body.get("gender"));
+		
+		Info saveInfo = service.setInfo2Member(info, memberId);
+		
+		return ResponseEntity.ok(saveInfo);
+	}
+	
+	@GetMapping("/{memberId}")
+	public ResponseEntity<Member> queryMember(@PathVariable Long memberId){
+		return ResponseEntity.ok(service.findMemberById(memberId));
+	}
 	
 	
 	

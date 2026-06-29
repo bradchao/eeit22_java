@@ -25,7 +25,7 @@ public class MemberService {
 		return memberRepo.save(member);
 	}
 
-	
+	@Transactional
 	public Info setInfo2Member(Info info, Long memberId) {
 		Member member = memberRepo.findById(memberId).orElse(null);
 		if (member != null) {

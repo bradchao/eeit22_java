@@ -1,5 +1,6 @@
 package com.example.spring4.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring4.dto.CustomerDto;
+import com.example.spring4.dto.OrderDto;
 import com.example.spring4.entity.Customer;
 import com.example.spring4.entity.Order;
 import com.example.spring4.repo.CustomerRepo;
@@ -50,12 +52,16 @@ public class CustomerController {
 		Customer c = repo.findById(id).orElse(null);
 		List<Order> orders =  c.getOrders();
 		
+		ArrayList<OrderDto> orderList = new ArrayList<OrderDto>();
 		for (Order order : orders) {
-			
+			orderList.add(new OrderDto(order.getOrderid(), order.getOrderdate()));
 		}
 		
+		CustomerDto cDto = new CustomerDto(
+				c.getCustomerid(), c.getCompanyName(), orderList);
 		
-		return null;
+		
+		return ResponseEntity.ok(cDto);
 	}	
 	
 }

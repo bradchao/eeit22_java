@@ -5,10 +5,17 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.spring5.apis.MemberForm;
 import com.example.spring5.apis.User;
+
+import jakarta.validation.Valid;
 
 /*
  * request => Controller
@@ -62,6 +69,29 @@ public class WebController {
 	public String page2(Model model, @PathVariable String status) {
 		model.addAttribute("status", status);
 		return "page2";
+	}
+	
+	@GetMapping("/page3")
+	public String page3(Model model) {
+		MemberForm memberForm = new MemberForm();
+		memberForm.setAccount("輸入帳號");
+		model.addAttribute("memberForm", memberForm);
+		return "page3";
+	}
+	
+	@PostMapping("/page3")
+	public String afterPage3(Model model,
+			@ModelAttribute @Valid MemberForm memberForm,
+			BindingResult bindingResult) {
+		System.out.println(memberForm.getAccount());
+		System.out.println(memberForm.getPasswd());
+		System.out.println(memberForm.getName());
+		
+		if (bindingResult.hasErrors()) {
+			return "page3";
+		}
+		
+		return "page4";
 	}
 	
 	

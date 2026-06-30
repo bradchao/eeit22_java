@@ -43,7 +43,7 @@ public class MemberController {
 			return "redirect:/member/login";
 		}catch(Exception e) {
 			System.out.println(e);
-			model.addAttribute("error", "帳號已存在");
+			model.addAttribute("error", "帳號已存在 ");
 			return "register";
 		}
 	}

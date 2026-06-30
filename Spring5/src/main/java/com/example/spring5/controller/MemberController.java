@@ -31,16 +31,18 @@ public class MemberController {
 	
 	@PostMapping("/register")
 	public String doRegister(Model model, 
-			BindingResult bindingResult, 
-			@ModelAttribute @Valid MemberForm memberForm) {
+			@ModelAttribute @Valid MemberForm memberForm,
+			BindingResult bindingResult) {
 		
 		if (bindingResult.hasErrors()) {
 			return "register";
 		}
 		
 		try {
+			System.out.println("debug");
 			Member member = memberService.register(memberForm);
-			return "redirect:/member/login";
+			System.out.println(member.getId());
+			return "redirect:/members/login";
 		}catch(Exception e) {
 			System.out.println(e);
 			model.addAttribute("error", "帳號已存在 ");

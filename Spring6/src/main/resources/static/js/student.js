@@ -1,6 +1,6 @@
 window.onload = function(){
 	let myDrawer = document.getElementById("myDrawer");
-	let url = "ws://10.0.101.218:8080/BradWeb2/mycenter"
+	let url = "ws://10.0.101.218:8080/ws"
 	let webSocket = new WebSocket(url);
 	let isConnect = false;
 	

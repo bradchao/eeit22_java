@@ -5,6 +5,19 @@
 		<title>Insert title here</title>
 	</head>
 	<body>
-		<h1>登入頁面</h1>	
+		<h1>登入頁面</h1>
+		<hr />
+		<form method="post" th:action="@{/members/login}">
+			<div>
+				<label>帳號</label>
+				<input type="text" name="account" required="required" />
+			</div>
+			<div>
+				<label>密碼</label>
+				<input type="password" name="passwd" required="required" />
+			</div>
+			<button type="submit">登入</button>
+		</form>
+			
 	</body>
 </html>

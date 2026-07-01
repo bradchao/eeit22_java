@@ -38,7 +38,7 @@ public class MyAspect {
 		System.out.println("around1");
 		Object obj = joinPoint.proceed();
 		System.out.println("around2");
-		return obj;
+		return null;
 	}
 
 }

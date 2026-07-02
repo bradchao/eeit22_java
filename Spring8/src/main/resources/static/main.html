@@ -13,7 +13,7 @@
 				}
 				
 				let resp = await fetch("/api/main", {
-					method: "POST",
+					method: "GET",
 					headers: {
 						"Authorization" : "Bearer " + token
 					}
@@ -21,6 +21,10 @@
 				
 				let json = await resp.json();
 				console.log(json);
+				if (!json.success){
+					console.log(json.mesg);
+					window.location.href = "login.html";
+				}
 				
 			}
 		

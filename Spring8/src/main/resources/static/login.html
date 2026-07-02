@@ -15,8 +15,8 @@
 		<script type="text/javascript">
 			document.getElementById("loginForm").addEventListener("submit", async function(e){
 				e.preventDefault();
-				let account = document.getElementById("account").value().trim();
-				let passwd = document.getElementById("passwd").value().trim();
+				let account = document.getElementById("account").value.trim();
+				let passwd = document.getElementById("passwd").value.trim();
 				
 				let resp = await fetch("/api/login", {
 					method: "POST",

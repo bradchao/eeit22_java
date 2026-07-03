@@ -3,6 +3,8 @@ package com.example.spring6.util;
 import java.security.Key;
 import java.util.Date;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,4 +31,22 @@ public class JwtToken {
 		String subject = parser.parseClaimsJws(token).getBody().getSubject();
 		return subject;
 	}
+	
+	private static Jws<Claims> parse(String token){
+		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+	}
+	
+	public static String getAccount(String token) {
+		return parse(token).getBody().getSubject();
+	}
+	
+	public static boolean isValid(String token) {
+		try {
+			parse(token);
+			return true;
+		}catch(Exception e) {
+			return false;
+		}
+	}
+	
 }

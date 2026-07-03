@@ -60,12 +60,9 @@
 		}
 	
 		function connectWebSocket(){
-			let socket = new SocketJS('/ws-chat?token=' + encodeURIComponment('Bearer ' + token));
+			let socket = new SockJS('/ws-chat?token=' + encodeURIComponent('Bearer ' + token));
 			client = Stomp.over(socket);
-			client.connect({
-			//	"Authorization":"Bearer " + token,
-				"heart-beat":"10000,10000"
-				}, function(frame){
+			client.connect({}, function(frame){
 				consloe.log(frame);
 				
 				client.subscribe("/topic/public", function(message){

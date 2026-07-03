@@ -86,7 +86,7 @@ public class StompConfig implements WebSocketMessageBrokerConfigurer {
 				}
 				
 			})
-			.setAllowedOrigins("*")
+			.setAllowedOriginPatterns("*")
 			.withSockJS();
 	}
 

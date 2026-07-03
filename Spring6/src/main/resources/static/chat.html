@@ -25,7 +25,8 @@
 		
 	</body>
 	<script type="text/javascript">
-		let token = null;	// 
+		let token = null;	//
+		let client = null;
 		
 		document.getElementById("login").onclick = async () => {
 			let account = document.getElementById("account").value;
@@ -53,15 +54,36 @@
 		}
 		
 		document.getElementById("send").onclick = async () => {
-			
+			let mesg = document.getElementById("mesg").value.trim();
+			client.send('/app/chat/send', {}, mesg);
+			document.getElementById("mesg").value = '';
 		}
 	
 		function connectWebSocket(){
-			
+			let socket = new SocketJS('/ws-chat?token=' + encodeURIComponment('Bearer ' + token));
+			client = Stomp.over(socket);
+			client.connect({
+			//	"Authorization":"Bearer " + token,
+				"heart-beat":"10000,10000"
+				}, function(frame){
+				consloe.log(frame);
+				
+				client.subscribe("/topic/public", function(message){
+					console.log(message);
+					let body = JSON.parse(message.body);
+					console.log(body);
+					receiveMesg(body);
+				});
+				
+				
+			});
 		}
 		
-		function receiveMesg(){
-			
+		function receiveMesg(mesg){
+			let box = document.getElementById("chatBox");
+			let line = document.createElement("div");
+			line.innerHTML = `[$(mesg.time) $(mesg.account)]:$(mesg.content)`;
+			box.appendChild(line);
 		}
 	
 	

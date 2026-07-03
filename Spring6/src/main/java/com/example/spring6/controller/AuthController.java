@@ -14,6 +14,7 @@ import com.example.spring6.dto.Login;
 import com.example.spring6.entity.Member;
 import com.example.spring6.repo.MemberRepo;
 import com.example.spring6.response.LoginResponse;
+import com.example.spring6.util.JwtToken;
 
 @RestController
 @RequestMapping("/auth")
@@ -33,7 +34,7 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("密碼錯誤");
 		}
 		
-		String token = "token";
+		String token = JwtToken.createToken(member.getAccount());
 		
 		return ResponseEntity.ok(new LoginResponse(token, member.getAccount(), member.getName()));
 		

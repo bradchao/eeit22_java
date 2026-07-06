@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<div th:replace="~{member/layout :: main-layout(~{::title}, ~{::#member-content})}">
+		<title>會員標題</title>
+		<div id="member-content">
+			<h1>會員列表</h1>
+			<table>
+				<tr th:each="m : ${members}">
+					<td th:text="${m.name}">Name</td>
+				</tr>
+			</table>
+		</div>
+		
+	</div>
+</body>
+</html>

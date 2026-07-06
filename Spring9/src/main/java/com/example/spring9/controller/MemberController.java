@@ -1,5 +1,7 @@
 package com.example.spring9.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,5 +72,30 @@ public class MemberController {
 		
 		return "/member/test01";
 	}	
+	
+	@GetMapping("/member/list")
+	public String list(Model model) {
+		
+		Member m1 = new Member();
+		m1.setName("Kevin1");
+		m1.setAge(20);
+		
+		Member m2 = new Member();
+		m2.setName("Kevin2");
+		m2.setAge(20);
+		
+		Member m3 = new Member();
+		m3.setName("Kevin3");
+		m3.setAge(20);
+		
+		model.addAttribute("members", List.of(m1, m2, m3));
+		
+		
+		
+		return "/member/list";
+	}
+	
+	
+	
 
 }

@@ -43,6 +43,10 @@ public class MemberController {
 		return "admin";
 	}
 
+	@GetMapping("/admin/page1")
+	public String adminPage1(Model model) {
+		return "/admin/admin1";
+	}
 	@GetMapping("/page403")
 	public String page403(Model model) {
 		return "page403";

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.spring9.apis.Member;
+
 @Controller
 @RequestMapping("/")
 public class MemberController {
@@ -51,5 +53,22 @@ public class MemberController {
 	public String page403(Model model) {
 		return "page403";
 	}
+	
+	@RequestMapping("/member/test01")
+	public String test01(Model model) {
+		model.addAttribute("name", "<h2>Brad</h2>");
+		
+		Member member = new Member();
+		member.setName("Kevin");
+		member.setAge(20);
+		
+		model.addAttribute("member", member);
+		
+		member.setId(123);
+		member.setAdmin(true);
+		
+		
+		return "/member/test01";
+	}	
 
 }

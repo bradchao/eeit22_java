@@ -26,7 +26,7 @@ public class JwtToken {
 		return token;
 	}
 	
-	private static String parseToken(String token) {
+	public static String parseToken(String token) {
 		JwtParser parser = Jwts.parserBuilder().setSigningKey(key).build();
 		String subject = parser.parseClaimsJws(token).getBody().getSubject();
 		return subject;

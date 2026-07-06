@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/")
 public class MemberController {
 	
+	@GetMapping("/")
+	public String root() {
+		return "redirect:/main";
+	}
+	
 	@GetMapping("/login")
 	public String login(
 		@RequestParam(value = "error", required = false) String error,
@@ -28,4 +33,19 @@ public class MemberController {
 		return "main";
 	}
 	
+	@GetMapping("/member/page1")
+	public String page1(Model model) {
+		return "/member/page1";
+	}
+	
+	@GetMapping("/admin")
+	public String admin(Model model) {
+		return "admin";
+	}
+
+	@GetMapping("/page403")
+	public String page403(Model model) {
+		return "page403";
+	}
+
 }

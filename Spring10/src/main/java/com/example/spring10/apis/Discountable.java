@@ -8,7 +8,7 @@ public interface Discountable {
 		switch(level) {
 			case 1: return price * 0.9;
 			case 2: return price * 0.7;
-			case 5: return price * 0.5;
+			case 3: return price * 0.5;
 			default: return price;
 		}
 	}

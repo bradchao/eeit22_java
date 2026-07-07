@@ -1,5 +1,6 @@
 package com.example.spring10.entity;
 
+import com.example.spring10.annotation.CheckLength;
 import com.example.spring10.enums.OrderStatus;
 
 import jakarta.persistence.Column;
@@ -18,5 +19,8 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
 	private OrderStatus status;
+	
+	@CheckLength(min=4, message = "error")
+	private String account;
 	
 }

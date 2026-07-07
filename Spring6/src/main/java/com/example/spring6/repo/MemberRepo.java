@@ -8,4 +8,7 @@ import com.example.spring6.entity.Member;
 
 public interface MemberRepo extends JpaRepository<Member, Integer>{
 	Optional<Member> findByAccount(String account);
+	
+	
+	
 }

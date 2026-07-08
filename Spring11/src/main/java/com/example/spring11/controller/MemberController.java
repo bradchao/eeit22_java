@@ -23,6 +23,9 @@ public class MemberController {
 		try {
 			Member member = memberService.register(
 					login.getAccount(), login.getPasswd(), login.getName());
+			
+			member.setAccount("bradxxx");
+			
 			return ResponseEntity.ok(member);
 		}catch(Exception e) {
 			return ResponseEntity.ok("error: " + e.getMessage());

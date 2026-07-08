@@ -2,6 +2,7 @@ package com.example.spring11.controller;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,10 +37,10 @@ public class MemberControllerTest {
 		Member mockMember = new Member();
 		mockMember.setAccount("brad");
 		mockMember.setPasswd("sdkfgjwdtlghdfgdthf");
-		
+		//-------------------------------------------
 		when(memberService.register(anyString(), anyString(), anyString()))
 			.thenReturn(mockMember);
-		
+		//-----------------------------------------
 		mockMvc.perform(post("/api/member/register")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(login)))
@@ -49,10 +50,22 @@ public class MemberControllerTest {
 		
 	}
 	
-//	@Test
-//	void register_failure() {
-//		
-//	}
+	@Test
+	@DisplayName("測試 register -> 200, error")
+	void register_failure() throws Exception {
+		Login login = new Login("brad", "123456", "Brad");
+		//------------------------------
+		when(memberService.register(anyString(), anyString(), anyString()))
+		.thenThrow(new RuntimeException("xxxx"));
+		//-----------------
+		
+		mockMvc.perform(
+				post("/api/member/register")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(login)))
+			.andExpect(status().isOk())
+			.andExpect(content().string("error: xxxx"));
+	}
 
 	
 	

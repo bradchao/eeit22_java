@@ -14,6 +14,9 @@ public class MemberService {
 	private MemberRepo memberRepo;
 	
 	public Member register(String account, String passwd, String name) {
+		if (memberRepo.existsByAccount(account)) 
+			throw new IllegalArgumentException("Account EXIST");
+		
 		Member member = new Member();
 		member.setAccount(account);
 		member.setPasswd(BCrypt.hashpw(passwd, BCrypt.gensalt()));
@@ -22,4 +25,6 @@ public class MemberService {
 		Member savedMember = memberRepo.save(member);
 		return savedMember;
 	}
+	
+	
 }

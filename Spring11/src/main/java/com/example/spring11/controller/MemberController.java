@@ -24,7 +24,7 @@ public class MemberController {
 			Member member = memberService.register(
 					login.getAccount(), login.getPasswd(), login.getName());
 			
-			member.setAccount("bradxxx");
+			//member.setAccount("bradxxx");
 			
 			return ResponseEntity.ok(member);
 		}catch(Exception e) {

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<!-- ${} => model; #{} 語系-->
+		<h1 th:text="#{member.title}">標題</h1>	
+		<hr />
+		<label th:text="#{member.account}">帳號</label>
+		<input type="text" th:placeholder="#{member.account.placeholder}" /><br />
+		<button type="submit" th:text="#{member.submit}">Login</button>
+		
+	</body>
+</html>

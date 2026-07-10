@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script>
+			window.onload = function(){
+				let browserLang = navigator.language;
+				console.log(browserLang);
+				
+				let currentLang = localStorage.getItem("lang") || "zh-TW";
+				let messages = {};
+				console.log(currentLang);
+				
+				async function loadLanguage(lang){
+					console.log("debug:" + lang);
+					let response = await fetch(`/i18n/${lang}.json`);
+					messages =  await response.json();
+					console.log(messages);
+					
+					document.querySelectorAll("[data-i18n]").forEach(e => {
+						let key = e.getAttribute("data-i18n");
+						if (messages[key]){
+							e.textContent = messages[key];
+						}
+					});
+					
+					document.querySelectorAll("[data-i18n-placeholder]").forEach(e => {
+						console.log("debug1");
+						let key = e.getAttribute("data-i18n-placeholder");
+						if (messages[key]){
+							console.log("debug2"+ messages[key]);
+							e.setAttribute("placeholder", messages[key]);
+						}
+					});
+					
+					localStorage.setItem("lang", lang);
+					
+				}
+				
+				document.getElementById("langSelect").addEventListener("change", function(){
+					loadLanguage(this.value);
+				});
+				
+				
+				
+				loadLanguage(currentLang);
+				
+				
+			}
+		
+		</script>
+	</head>
+	<body>
+		<h1 data-i18n="member.title">會員登入</h1>
+		<hr />
+		<label data-i18n="member.account">帳號</label>
+		<input type="text" id="account" data-i18n-placeholder="member.account.placeholder" /><br />	
+		<label data-i18n="member.passwd">密碼</label>
+		<input type="password" id="passwd" /><br />
+		<button data-i18n="member.login">登入</button><br />
+		
+		<select id="langSelect">
+			<option value="zh-TW">繁體中文</option>
+			<option value="en-US">English</option>
+		</select>
+		
+			
+	</body>
+</html>

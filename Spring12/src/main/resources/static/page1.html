@@ -47,6 +47,22 @@
 				loadLanguage(currentLang);
 				
 				
+				async function getRemote(lang){
+					await fetch("/api/member/login",{
+						method: "POST",
+						headers: {
+							"Content-type": "application/json",
+							"Accept-Language": lang
+						},
+						body: JSON.sringify({})
+						
+					});
+					
+				}
+				
+				
+				
+				
 			}
 		
 		</script>
